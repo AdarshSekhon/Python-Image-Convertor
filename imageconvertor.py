@@ -52,19 +52,21 @@ def ang():
 def viewjpg():
      for f in os.listdir("Images"):
         if f.endswith(".jpg"):
-            i = Image.open(f)
+            i = Image.open(f"Images/{f}")
             i.show()
             options()
 
 #Function for displaying all png images, displaying "empty folder" if the user hasn't converted any images to png. 
 
 def viewpng():
-    try:
-        for p in os.listdir("png"):
-            i = Image.open(p)
-            i.show()
-    except:
-        print("Empty folder.")
+    if os.path.exists("png"):
+        pass
+    else:
+        print("Empy folder.")
+    for p in os.listdir("png"):
+        i = Image.open(f"png/{p}")
+        i.show()
+    options()
 
 #Function that deletes contents of all folders when the user quits or selects "purge".
 
@@ -129,13 +131,10 @@ def purge():
 #Function for displaying all edited images. 
 
 def viewedits():
-    try:
-        for e in os.listdir("Edits"):
-            i = Image.open(os.path.join("Edits", e))
+   for f in os.listdir("Edits"):
+            i = Image.open(f"Edits/{f}")
             i.show()
-            options()
-    except:
-        print("Empty folder.")
+   options()
 
 #Function for changing image's brightness.
 
@@ -479,7 +478,7 @@ def topng(image):
 
     
 #lsit containing all animal image names.
-animals = ["pig", "dog", "fox", "ducks", "gorilla", "squirrel", "meerkat", "monkey", "walrus", "zebra"]
+animals = ["pig", "dog", "fox", "ducks", "gorilla", "whale", "squirrel", "meerkat", "monkey", "walrus"]
 
 mods = ["tojpg", "view", "size", "rotate", "blwh", "blur" ]
 
