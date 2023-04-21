@@ -8,11 +8,15 @@ import glob
 
 #Saves all images to fodler titled "Images".
 
-for f in os.listdir("."):
-    if f.endswith(".jpg"):
-        i = Image.open(f)
-        fname, fext = os.path.splitext(f)
-        i.save('Images/{}.jpg'.format(fname))
+if os.path.exists("Images"):
+    pass
+else:
+    os.mkdir("Images")
+    for f in os.listdir("."):
+        if f.endswith(".jpg"):
+            i = Image.open(f)
+            fname, fext = os.path.splitext(f)
+            i.save('Images/{}.jpg'.format(fname))
 
 
 edits = 0
@@ -54,7 +58,7 @@ def viewjpg():
         if f.endswith(".jpg"):
             i = Image.open(f"Images/{f}")
             i.show()
-            options()
+     options()
 
 #Function for displaying all png images, displaying "empty folder" if the user hasn't converted any images to png. 
 
@@ -78,47 +82,38 @@ def purge():
             pass  
         try:
             shutil.rmtree('Edits')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('blackwhite')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('rotate')
-            # options()
         except:
             pass
         try:       
             shutil.rmtree('brightness')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('blur')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('size')
-            # options()
         except:
             pass
         try:                               
             shutil.rmtree('200')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('400')
-            # options()
         except:
             pass
         try:
             shutil.rmtree('600')
-            # options()
         except:
             options()
     
@@ -173,6 +168,7 @@ def newImage():
     #Checks and raises error if inputted image name is invalid.
     
     while select.lower() not in animals:
+        ang()
         print("invalid input, please try again.")
         select = input("input: ")
     #Finds the image's associated path recorded in the image dictionary and stores in a varibale called path
@@ -201,11 +197,51 @@ def newImage():
 #Function that terminates program when user inputs "quit".
 
 def quiter():
-    ang()
-    print("Byebye! ...")
-    ang()
-    time.sleep(0.3)
-    quit()
+    while True:
+        try:
+            shutil.rmtree('png')
+        except:
+            pass  
+        try:
+            shutil.rmtree('Edits')
+        except:
+            pass
+        try:
+            shutil.rmtree('blackwhite')
+        except:
+            pass
+        try:
+            shutil.rmtree('rotate')
+        except:
+            pass
+        try:       
+            shutil.rmtree('brightness')
+        except:
+            pass
+        try:
+            shutil.rmtree('blur')
+        except:
+            pass
+        try:
+            shutil.rmtree('size')
+        except:
+            pass
+        try:                               
+            shutil.rmtree('200')
+        except:
+            pass
+        try:
+            shutil.rmtree('400')
+        except:
+            pass
+        try:
+            shutil.rmtree('600')
+        except:
+            ang()
+            print("Byebye! ...")
+            ang()
+            time.sleep(0.3)
+            exit()
 
 #Function that lists further options after user has edited an image, allowing the user to either view selected images or select a new image to edit.
 
@@ -478,7 +514,7 @@ def topng(image):
 
     
 #lsit containing all animal image names.
-animals = ["pig", "dog", "fox", "ducks", "gorilla", "whale", "squirrel", "meerkat", "monkey", "walrus"]
+animals = ["pig", "dog", "fox", "ducks", "gorilla","squirrel", "meerkat", "monkey", "walrus", "zebra"]
 
 mods = ["tojpg", "view", "size", "rotate", "blwh", "blur" ]
 
@@ -507,7 +543,8 @@ ang()
 while select.lower() not in animals:
     print("invalid input, please try again.")
     ang()
-    select = input("input: ")
+    select = input("Please select an animal image to modify - {} : ".format(str((", ".join(animals)))))
+    ang()
 #Extracts image's associated path from dictionary, storing it in a variable called path.
 path = Dict[select]
 #opens and stores image as a variable labelled image.
@@ -524,7 +561,7 @@ def ModSelect(mode, image):
         elif mode == "size":
             size(image)
 
-        elif mode == "blwh":
+        elif mode == "blackwhite":
             blwh(image)
 
         elif mode == "blur":
@@ -549,7 +586,6 @@ def ModSelect(mode, image):
             topng()
 
         elif mode == "quit":
-            purge()
             quiter()
 
         elif mode == "purge":
@@ -559,21 +595,15 @@ def ModSelect(mode, image):
             ang()
             print("Invalid input, please try again.")
             ang()
-            mode = input("Please choose modification: ")
+            mode = input("Please choose modification: rotate, blur, size, blackwhite, or bright: ")
             ModSelect(mode, image)
 
 #Asks user for desired modification they'd like to apply to image.
 ang()
-mode = input("Please choose modification: ")
+mode = input("Please choose modification: rotate, blur, size, blackwhite, or bright: ")
 if mode.lower() == "quit":
-    purge()
     quiter()
 ModSelect(mode, image)
-
-
-
-
-
 
 
 
